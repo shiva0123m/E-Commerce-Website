@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  sql:
+    image: mcr.microsoft.com/azure-sql-edge
+    environment:
+      ACCEPT_EULA: "1"
+      MSSQL_SA_PASSWORD: "Password@1"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql   # Mount a volume for SQL Server data persistence
+
+volumes:
+  sql_data:  # This is the name of the volume
