@@ -1,3 +1,4 @@
+using Core.Entity;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 // Adding the service to implement the repository pattern 
 // this scoped service will be active till the request is there ,Singleton service also would have been used instead of this but it will alive till the application is running 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 var app = builder.Build();
 
 
