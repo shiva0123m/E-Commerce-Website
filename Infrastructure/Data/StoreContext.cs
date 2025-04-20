@@ -1,17 +1,23 @@
-using System;
-using Core.Entity;
+﻿using Core.Entities;
+using Core.Entities.OrderAggregate;
 using Infrastructure.Config;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
-// here inheriting the dbcontext class and using constructor to form the connection 
-public class StoreContext(DbContextOptions options) : DbContext(options)
+
+public class StoreContext(DbContextOptions options) : IdentityDbContext<AppUser>(options)
 {
-    public DbSet<Product> Products{ get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        // using the data configurred in product configuration class 
-        modelBuilder.ApplyConfigurationsFromAssembly( typeof(ProductConfiguration).Assembly );
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
     }
 }

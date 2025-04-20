@@ -1,5 +1,3 @@
-
-
 services:
   sql:
     image: mcr.microsoft.com/azure-sql-edge
@@ -9,7 +7,14 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - sql_data:/var/opt/mssql   # Mount a volume for SQL Server data persistence
+      - sql-data:/var/opt/mssql
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
 
 volumes:
-  sql_data:  # This is the name of the volume
+  redis-data:
+  sql-data:
